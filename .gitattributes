@@ -1,0 +1,2 @@
+# Виключаємо sh-файли із загальної статистики
+*.sh linguist-detectable=false

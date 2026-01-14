@@ -1,0 +1,279 @@
+<!-- Згенеровано за допомогою MavenOwnArchetype_Translation v1.1.0 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- Основні властивості -->
+  <groupId>com.rutar</groupId>
+  <artifactId>TTool_H4</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+
+  <!-- Допоміжні властивості -->
+  <name>TTool_H4</name>
+  <modelVersion>4.0.0</modelVersion>
+  <url>https://github.com/RutarAndriy/TTool_H4</url>
+
+  <!-- Список розробників -->
+  <developers>
+    <developer>
+      <id>rutar</id>
+      <name>Rutar Andriy</name>
+      <email>RutarAndriy@gmail.com</email>
+    </developer>
+  </developers>
+
+  <!-- Користувацькі властивості -->
+  <properties>
+    <!-- Кодування вихідного коду -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Версія Java, на основі якої збирається проект -->
+    <maven.compiler.release>25</maven.compiler.release>
+    <!-- Головний клас програми -->
+    <app.mainClass>com.rutar.ttool_h4.TToolH4</app.mainClass>
+    <!-- Версія maven-jar плагіна -->
+    <maven.jar.version>3.4.2</maven.jar.version>
+    <!-- Версія maven-shade плагіна -->
+    <maven.shade.version>3.6.1</maven.shade.version>
+    <!-- Версія maven-clean плагіна -->
+    <maven.clean.version>3.5.0</maven.clean.version>
+    <!-- Версія maven-antrun плагіна -->
+    <maven.antrun.version>3.1.0</maven.antrun.version>
+    <!-- Версія maven-deploy плагіна -->
+    <maven.deploy.version>3.1.4</maven.deploy.version>
+    <!-- Версія maven-install плагіна -->
+    <maven.install.version>3.1.4</maven.install.version>
+    <!-- Версія maven-javadoc плагіна -->
+    <maven.javadoc.version>3.12.0</maven.javadoc.version>
+    <!-- Версія maven-compiler плагіна -->
+    <maven.compiler.version>3.14.1</maven.compiler.version>
+    <!-- Версія maven-surefire плагіна -->
+    <maven.surefire.version>3.5.3</maven.surefire.version>
+    <!-- Версія maven-resources плагіна -->
+    <maven.resources.version>3.3.1</maven.resources.version>
+    <!-- Версія jupiter-junit плагіна -->
+    <jupiter.junit.version>6.0.0</jupiter.junit.version>
+    <!-- Версія fabriciorby-reporter плагіна -->
+    <fabriciorby.reporter.version>1.5.1</fabriciorby.reporter.version>
+  </properties>
+  
+  <!-- Додаткові репозиторії -->
+  <repositories>
+    <!-- Репозиторій JitPack.IO -->
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+  <!-- Список залежностей -->
+  <dependencies>
+    <!-- JUnit-тести - ядро -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${jupiter.junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- JUnit-тести - двигун -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${jupiter.junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- JUnit-тести - параметричні тести -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${jupiter.junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- LookAndFeel -->
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+      <version>3.6</version>
+    </dependency>
+    <!-- Бібліотека для розпаковування/запаковування даних -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+      <version>1.28.0</version>
+    </dependency>
+  </dependencies>
+
+  <!-- Конфігурація збірки -->
+  <build>
+    <!-- Налаштування плагінів -->
+    <plugins>
+      <!-- Плагін для очищення результатів збірки -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven.clean.version}</version>
+      </plugin>
+      <!-- Плагін для копіювання ресурсів -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.version}</version>
+      </plugin>
+      <!-- Плагін для збирання jar-файлу -->
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven.jar.version}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>false</addClasspath>
+              <mainClass>${app.mainClass}</mainClass>
+            </manifest>
+            <manifestEntries>
+                <Version>${project.version}</Version>
+                <Build-Date>${maven.local.build.time}</Build-Date>
+                <Author>Rutar Andriy</Author>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <!-- Плагін для збирання jar-файлу із залежностями -->
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven.shade.version}</version>
+        <configuration>
+          <!-- Оптимізація вихідного файлу -->
+          <minimizeJar>false</minimizeJar>
+          <!-- Заміна основного jar-файлу -->
+          <shadedArtifactAttached>false</shadedArtifactAttached>
+          <!-- Генерування спрощеного pom.xml -->
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>${app.mainClass}</mainClass>
+            </transformer>
+          </transformers>
+          <!-- Фільтрування файлів -->
+          <filters>
+            <!-- Вилучення системних maven-файлів -->
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/maven/**</exclude>
+                <exclude>META-INF/*.txt</exclude>
+              </excludes>
+            </filter>
+            <!-- Шаблон користувацького фільтрування -->
+            <!--
+            <filter>
+              <artifact>[groupId]:[artifactId]</artifact>
+              <includes>
+                <include>com/rutar/example/**</include>
+              </includes>
+              <excludes>
+                <exclude>com/rutar/example/Example*</exclude>
+              </excludes>
+            </filter>
+            -->
+          </filters>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-shade</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Плагін для компіляції проекту -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.version}</version>
+        <configuration>
+          <!-- Налаштування параметрів компілятора -->
+          <!--
+          <compilerArgs>
+            <arg>-Xlint:unchecked</arg>
+          </compilerArgs>
+          -->
+        </configuration>
+      </plugin>
+      <!-- Плагін для запуску тестів -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>me.fabriciorby</groupId>
+            <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
+            <version>${fabriciorby.reporter.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <reportFormat>plain</reportFormat>
+          <consoleOutputReporter>
+            <disable>true</disable>
+          </consoleOutputReporter>
+          <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">
+            <theme>UNICODE</theme>
+          </statelessTestsetInfoReporter>
+        </configuration>
+      </plugin>
+      <!-- Плагін для інсталяції зібраних артефактів -->
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>${maven.install.version}</version>
+      </plugin>
+      <!-- Плагін для виконання допоміжних дій -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${maven.antrun.version}</version>
+        <executions>
+          <!-- Отримання часу збірки в локальному форматі -->
+          <execution>
+            <id>set-local-build-time</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <exportAntProperties>true</exportAntProperties>
+              <target>
+                <tstamp>
+                    <format property="localTime" pattern="dd.MM.yyyy HH:mm:ss" timezone="Europe/Kiev"/>
+                </tstamp>
+                <property name="maven.local.build.time" value="${localTime}"/>
+              </target>
+            </configuration>
+          </execution>
+          <!-- Створення релізу на GitHub -->
+          <execution>
+            <id>make-github-release</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <exec failonerror="true"
+                      executable="\${basedir}/.gh-release.sh">
+                  <arg value="${project.artifactId}"/>
+                  <arg value="${project.version}"/>
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Плагін для створення релізів -->
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven.deploy.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
