@@ -631,8 +631,8 @@ lbl_colCount.setText(tmp);
     private JMenuItem mni_save;
     private JPanel pnl_footer;
     private JPopupMenu.Separator sep_one;
-    private JPopupMenu.Separator sep_two;
     private JPopupMenu.Separator sep_three;
+    private JPopupMenu.Separator sep_two;
     private JScrollPane sp_table;
     public JTable tbl_main;
     // End of variables declaration//GEN-END:variables

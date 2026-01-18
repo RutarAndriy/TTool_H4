@@ -28,7 +28,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x417;&#x431;&#x435;&#x440;&#x435;&#x433;&#x442;&#x438;"/>
                 <Property name="actionCommand" type="java.lang.String" value="save"/>
-				<Property name="enabled" type="boolean" value="false"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>
@@ -82,7 +82,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43f;&#x430;&#x43a;&#x443;&#x432;&#x430;&#x442;&#x438; &#x448;&#x440;&#x438;&#x444;&#x442;"/>
                 <Property name="actionCommand" type="java.lang.String" value="compileFont"/>
-				<Property name="enabled" type="boolean" value="false"/>		
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>
@@ -136,7 +136,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="BS Translation Tool"/>
+    <Property name="title" type="java.lang.String" value="TTool_H4"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mnb_main"/>
