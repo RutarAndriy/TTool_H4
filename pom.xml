@@ -7,7 +7,7 @@
   <!-- Основні властивості -->
   <groupId>com.rutar</groupId>
   <artifactId>TTool_H4</artifactId>
-  <version>0.0.1</version>
+  <version>4.3.0</version>
   <packaging>jar</packaging>
 
   <!-- Допоміжні властивості -->
