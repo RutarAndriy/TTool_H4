@@ -41,7 +41,7 @@ if (defaultColor == null)
 if (searchedCol != -1 && searchedCol == col &&
     searchedRow != -1 && searchedRow == row)
      { component.setForeground(searchColor); }
-else { setNormalColor(component, col, row);  }
+else { setNormalColor(component, col); }
 
 return component;
 
@@ -49,10 +49,10 @@ return component;
 
 // ============================================================================
 
-private void setNormalColor (Component component, int c, int r) {
+private void setNormalColor (Component component, int column) {
     
-    if ((fileExt.equals("txt") && c < 3) ||
-        (fileExt.equals("h4c") && c < 1))
+    if ((fileExt.equals("txt") && column < 3) ||
+        (fileExt.equals("h4c") && column < 1))
          { component.setForeground(Color.GRAY);   }
     else { component.setForeground(defaultColor); }
 
