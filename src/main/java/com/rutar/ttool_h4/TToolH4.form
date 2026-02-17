@@ -28,7 +28,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x417;&#x431;&#x435;&#x440;&#x435;&#x433;&#x442;&#x438;"/>
                 <Property name="actionCommand" type="java.lang.String" value="save"/>
-				<Property name="enabled" type="boolean" value="false"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>
@@ -43,7 +43,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x448;&#x443;&#x43a;"/>
                 <Property name="actionCommand" type="java.lang.String" value="find"/>
-				<Property name="enabled" type="boolean" value="false"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>
@@ -83,7 +83,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43f;&#x430;&#x43a;&#x443;&#x432;&#x430;&#x442;&#x438; &#x448;&#x440;&#x438;&#x444;&#x442;"/>
                 <Property name="actionCommand" type="java.lang.String" value="compileFont"/>
-				<Property name="enabled" type="boolean" value="false"/>		
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>
@@ -93,9 +92,8 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mni_rawDecompile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x420;&#x43e;&#x437;&#x43f;&#x430;&#x43a;&#x443;&#x432;&#x430;&#x442;&#x438; &#x434;&#x430;&#x43d;&#x456;"/>
+                <Property name="text" type="java.lang.String" value="&#x420;&#x43e;&#x437;&#x448;&#x438;&#x444;&#x440;&#x443;&#x432;&#x430;&#x442;&#x438; *.raw &#x444;&#x430;&#x439;&#x43b;"/>
                 <Property name="actionCommand" type="java.lang.String" value="decompileRaw"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>
@@ -103,9 +101,8 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mni_rawCompile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43f;&#x430;&#x43a;&#x443;&#x432;&#x430;&#x442;&#x438; &#x434;&#x430;&#x43d;&#x456;"/>
+                <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x448;&#x438;&#x444;&#x440;&#x443;&#x432;&#x430;&#x442;&#x438; *.raw &#x444;&#x430;&#x439;&#x43b;"/>
                 <Property name="actionCommand" type="java.lang.String" value="compileRaw"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onMenuClick"/>

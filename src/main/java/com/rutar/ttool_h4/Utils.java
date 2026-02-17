@@ -1,12 +1,11 @@
 package com.rutar.ttool_h4;
 
 import java.io.*;
+import java.util.*;
 import javax.swing.*;
-import java.nio.charset.*;
 import javax.swing.filechooser.*;
-import org.apache.commons.compress.compressors.deflate.*;
+import org.apache.commons.compress.compressors.gzip.*;
 
-import static java.lang.System.*;
 import static com.rutar.ttool_h4.TToolH4.*;
 
 // ............................................................................
@@ -17,232 +16,188 @@ import static com.rutar.ttool_h4.TToolH4.*;
 public class Utils {
 
 // ============================================================================
-/// Перетворення кольору RGB565 в колір RGB888
-/// @param rgb565 колір у RGB565 представленні
-/// @return колір у RGB888 представленні
+/// Перевірка, чи завантажений файл є оригінальною кампанією
+/// @return якщо true - файл є оригінальною кампанією
 
-public static int from565to888rgb (short rgb565) {
-    
-    int r5 = (rgb565 >> 11) & 0x1F; // 5 байт
-    int g6 = (rgb565 >> 5)  & 0x3F; // 6 байт
-    int b5 =  rgb565        & 0x1F; // 5 байт
-    
-    int r8 = (r5 * 255) / 31;       // 8 байт
-    int g8 = (g6 * 255) / 63;       // 8 байт
-    int b8 = (b5 * 255) / 31;       // 8 байт
-    
-    return (r8 << 16) | (g8 << 8) | b8;
+public static boolean isOriginalCampagain() {
+
+final byte[] mask = { 0x48, 0x34, 0x43, 0x41, 0x4D,
+                      0x50, 0x41, 0x49, 0x47, 0x4E };
+
+return Arrays.equals(mask, Arrays.copyOfRange(allBytes, 16, 26));
+
 }
 
 // ============================================================================
-/// Перетворення кольору RGB888 в колір RGB565
-/// @param rgb888 колір у RGB888 представленні
-/// @return колір у RGB565 представленні
+/// Перевірка, чи починається gzip-архів з визначеної позиції
+/// @param position позиція для перевірки
+/// @return якщо true - з визначеної позиції починається gzip-архів
 
-public static short from888to565rgb (int rgb888) {
+public static boolean isNextGzipArchive (int position) {
     
-    int r8 = (rgb888 >> 16) & 0xFF; // 8 байт
-    int g8 = (rgb888 >> 8)  & 0xFF; // 8 байт
-    int b8 =  rgb888        & 0xFF; // 8 байт
-    
-    int r5 = (r8 * 31 + 127) / 255; // 5 байт
-    int g6 = (g8 * 63 + 127) / 255; // 6 байт
-    int b5 = (b8 * 31 + 127) / 255; // 5 байт
-    
-    return (short) ((r5 << 11) | (g6 << 5) | b5);
+return allBytes[position]   == (byte) 0x1F &&
+       allBytes[position+1] == (byte) 0x8B &&
+       allBytes[position+2] == (byte) 0x08;
 }
 
 // ============================================================================
-/// Перетворення кольору RGB555 в колір RGB888
-/// @param rgb555 колір у RGB555 представленні
-/// @return колір у RGB888 представленні
+/// Зчитування даних, поки не почнеться gzip-архів
+/// @return масив прочитаних даних
 
-public static int from555to888rgb (short rgb555) {
-    
-    int r5 = (rgb555 >> 10) & 0x1F; // 5 байт
-    int g6 = (rgb555 >> 5)  & 0x1F; // 5 байт
-    int b5 =  rgb555        & 0x1F; // 5 байт
-    
-    int r8 = (r5 * 255) / 31;       // 8 байт
-    int g8 = (g6 * 255) / 31;       // 8 байт
-    int b8 = (b5 * 255) / 31;       // 8 байт
-    
-    return (r8 << 16) | (g8 << 8) | b8;
+public static byte[] readUntilArchiveStart() {
+
+int sPosition = procPosition;
+int ePosition = sPosition;
+
+while (!isNextGzipArchive(ePosition)) { ePosition++; }
+
+procPosition = ePosition;
+return Arrays.copyOfRange(allBytes, sPosition, ePosition);
+
 }
 
 // ============================================================================
-/// Перетворення кольору RGB888 в колір RGB555
-/// @param rgb888 колір у RGB888 представленні
-/// @return колір у RGB555 представленні
+/// Зчитування даних, поки не закінчиться gzip-архів
+/// @return масив прочитаних даних  
 
-public static short from888to555rgb (int rgb888) {
+public static byte[] readUntilArchiveEnd() {
     
-    int r8 = (rgb888 >> 16) & 0xFF; // 8 байт
-    int g8 = (rgb888 >> 8)  & 0xFF; // 8 байт
-    int b8 =  rgb888        & 0xFF; // 8 байт
-
-    int r5 = (r8 * 31 + 127) / 255; // 5 байт
-    int g5 = (g8 * 31 + 127) / 255; // 5 байт
-    int b5 = (b8 * 31 + 127) / 255; // 5 байт
-
-    return (short) ((r5 << 10) | (g5 << 5) | b5);
-}
-
-// ============================================================================
-/// Перетворення кольору ARGB1555 в колір ARGB8888
-/// @param argb1555 колір у ARGB1555 представленні
-/// @return колір у RGB8888 представленні
-
-public static int from1555to8888argb (short argb1555) {
+try (var bis = new ByteArrayInputStream(allBytes, procPosition,
+                                        allBytes.length);
+     var gcis = new GzipCompressorInputStream(bis)) {
     
-    int a1 = (argb1555 >> 15) & 0x01; // 1 байт
-    int r5 = (argb1555 >> 10) & 0x1F; // 5 байт
-    int g5 = (argb1555 >> 5)  & 0x1F; // 6 байт
-    int b5 =  argb1555        & 0x1F; // 5 байт
+    int sPosition = procPosition;
     
-    int a8 =  a1 == 1 ? 0xFF : 0x00;  // 8 байт
-    int r8 = (r5 << 3) | (r5 >> 2);   // 8 байт
-    int g8 = (g5 << 3) | (g5 >> 2);   // 8 байт
-    int b8 = (b5 << 3) | (b5 >> 2);   // 8 байт
+    int len;
+    byte[] tmp = new byte[4096];
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
     
-    return (a8 << 24) | (r8 << 16) | (g8 << 8) | b8;
-}
-
-// ============================================================================
-/// Перетворення кольору ARGB888 в колір ARGB1555
-/// @param argb8888 колір у ARGB8888 представленні
-/// @return колір у ARGB1555 представленні
-
-public static short from8888to1555argb (int argb8888) {
-    
-    int a8 = (argb8888 >> 24) & 0xFF; // 8 байт
-    int r8 = (argb8888 >> 16) & 0xFF; // 8 байт
-    int g8 = (argb8888 >> 8)  & 0xFF; // 8 байт
-    int b8 =  argb8888        & 0xFF; // 8 байт
-
-    int a1 = (a8 >= 128) ? 1 : 0;     // 1 байт
-    int r5 = (r8 * 31 + 127) / 255;   // 5 байт
-    int g5 = (g8 * 31 + 127) / 255;   // 5 байт
-    int b5 = (b8 * 31 + 127) / 255;   // 5 байт
-
-    return (short) ((a1 << 15) | (r5 << 10) | (g5 << 5) | b5);
-}
-
-// ============================================================================
-/// Отримання коду символу в кодуванні cp1251
-/// @param c символ
-/// @return код символу в кодуванні cp1251
-
-public static int fromCP1251CharToCode (char c) {
-    
-    return String.valueOf(c).getBytes(Charset.forName("cp1251"))[0] & 0xFF;
-}
-
-// ============================================================================
-/// Отримання символу за його кодом в кодуванні cp1251
-/// @param code код символу в кодуванні cp1251
-/// @return відповідний символ
-
-public static char fromCodeToCP1251Char (int code) {
-    
-    byte bCode = (byte) code;
-    return new String(new byte[]{bCode}, Charset.forName("cp1251")).charAt(0);
-}
-
-// ============================================================================
-/// Перетворення символу на рядок
-/// @param c символ для перетворення
-/// @return рядкове представлення символу
-
-public static String fromCharToString (char c) {
-    
-    String result = String.valueOf(c);
-
-    // Обробка усіх символів, які не можна використовувати в іменах 
-    // файлів на Windows (\ / : * ? " < > |), а також символу "_"
-    if (result.equals("\\") || result.equals("/")  ||
-        result.equals(":")  || result.equals("*")  ||
-        result.equals("?")  || result.equals("\"") ||
-        result.equals("<")  || result.equals(">")  ||
-        result.equals("|")  || result.equals("_")) {
-        
-        result = Integer.toString(Utils.fromCP1251CharToCode(c));
-    
+    while ((len = gcis.read(tmp)) > 0) {
+        bos.write(tmp, 0, len);
     }
     
-    return result;
+    int ePosition = allBytes.length - bis.available();
+    procPosition = ePosition;
+
+    return Arrays.copyOfRange(allBytes, sPosition, ePosition);
+
 }
 
-// ============================================================================
-/// Перетворення рядка на символ
-/// @param s рядок для перетворення
-/// @return символьне представлення рядка
-
-public static char fromStringToChar (String s) {
-    
-    if (s.length() == 1) { return s.charAt(0); }
-    else { return fromCodeToCP1251Char(Integer.parseInt(s)); }  
-}
-
-// ============================================================================
-/// Розпакування даних, запакованих з допомогою алгоритму zlib (deflate)
-/// @param compressed дані, запаковані з допомогою алгоритму zlib (deflate)
-/// @return розпаковані дані
-
-public static byte[] zlibDecompress (byte[] compressed) {
-
-try (ByteArrayInputStream bais = new ByteArrayInputStream(compressed);
-     DeflateCompressorInputStream dis = new DeflateCompressorInputStream(bais);
-     ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-
-    int n;
-    byte[] byteBuffer = new byte[8192];
-    
-    while ((n = dis.read(byteBuffer)) != -1) { baos.write(byteBuffer, 0, n); }
-    
-    return baos.toByteArray();
-}
-
-catch (Exception e) { err.println("zlib decompress error");
+catch (Exception e) { System.err.println("GZIP decompress error");
                       return null; }
+
 }
 
 // ============================================================================
-/// Запакування даних з допомогою алгоритму zlib (deflate)
-/// @param decompressed незапаковані дані
-/// @return запаковані дані
+/// Додавання метаданих до заголовку кампаній
+/// @param preperedData масив даних, підготовлених для запису в файл
+/// @param blocks масив блоків даних
 
-public static byte[] zlibCompress (byte[] decompressed) {
+public static void setHeaderMetadata (ArrayList<byte[]> preperedData,
+                                      ArrayList<DataBlock> blocks) {
 
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+int totalSize = 0;
+byte[] header = preperedData.getFirst();
 
-    try (DeflateCompressorOutputStream dos =
-     new DeflateCompressorOutputStream(baos)) { dos.write(decompressed); }
+for (int z = 0; z < preperedData.size(); z++) {
 
-    catch (Exception e) { err.println("zlib compress error");
-                          return null; }
+    // Оновлюємо загальний розмір даних
+    totalSize += preperedData.get(z).length;
+    
+    // Якщо це не навчальна кампанія - записуємо у заголовок метадані
+    if (z > 0 && blocks.getFirst().getStrings().length > 0) {
+        
+        // Розраховуємо позицію та дані для запису
+        int pos = header.length - (preperedData.size() - z) * 4;
+        byte[] data = Utils.getBytesByInteger(preperedData.get(z).length);
+        
+        // Записуємо метадані в заголовок
+        setBytesFromPosition(header, data, pos); } }
 
-    return baos.toByteArray();
+// Оскільки розмір кампанії вказаний як int, починаючи з 12 позиції,
+// необхідно від загального розміру файлу відняти (12 + 4) байт
+totalSize -= 16;
+
+// Задаємо загальний розмір даних у заголовку кампанії
+setBytesFromPosition(header, Utils.getBytesByInteger(totalSize), 12);
+
+}
+
+// ============================================================================
+/// Вставлення масиву байт у вихідний масив у заданій позиції
+
+private static void setBytesFromPosition (byte[] destination,
+                                          byte[] data, int position)
+    { System.arraycopy(data, 0, destination, position, data.length); }
+
+// ============================================================================
+/// Виведення байтового масиву в консоль у вигляді hex-значень
+/// @param array байтовий масив для виведення в консоль
+
+public static void printAsHex (byte[] array) {
+
+for (int q = 0; q < array.length; q++)
+    { System.out.print(" " + String.format("%02X", array[q]));
+      if ((q+1) % 8  == 0) { System.out.print(" ");  }
+      if ((q+1) % 16 == 0) { System.out.println(""); } } }
+
+// ============================================================================
+/// Перетворення байтового масиву в тип short
+/// @param bytes байтовий масив для перетворення
+/// @return об'єкт типу short
+
+public static short getShortByBytes (byte[] bytes) {
+    return (short) ((bytes[1] & 0xFF) << 8 | bytes[0] & 0xFF);
+}
+
+// ============================================================================
+/// Перетворення числа типу short в байтовий масив
+/// @param value число типу short
+/// @return байтовий масив
+
+public static byte[] getBytesByShort (short value) {
+    return new byte[] { (byte)(value), (byte)(value >> 8) };
+}
+
+// ============================================================================
+/// Перетворення числа типу int в байтовий масив
+/// @param value число типу int
+/// @return байтовий масив
+
+public static byte[] getBytesByInteger (int value) {
+    return new byte[] { (byte)(value),       (byte)(value >> 8),
+                        (byte)(value >> 16), (byte)(value >> 24) };
 }
 
 // ============================================================================
 /// Отримання налаштованого JFileChooser'а
-/// @param ext розширення файлів
 /// @param selectionMode тип виділення (папки, файли, папки+файли)
+/// @param ext розширення файлів
 /// @param desc опис розширення файлів
 /// @return налаштований екземпляр JFileChooser'а
 
-public static JFileChooser getFileChooser (String ext, int selectionMode,
-                                           String desc) {
+public static JFileChooser getFileChooser (int selectionMode,
+                                           String ext, String desc)
+    { return getFileChooser(selectionMode, Map.of(ext, desc)); }
+
+// ============================================================================
+/// Отримання налаштованого JFileChooser'а
+/// @param selectionMode тип виділення (папки, файли, папки+файли)
+/// @param filters масив розширень та описів файлів
+/// @return налаштований екземпляр JFileChooser'а
+
+public static JFileChooser getFileChooser (int selectionMode,
+                                           Map<String, String> filters) {
     
     JFileChooser chooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter(desc, ext);
-    
     chooser.setFileSelectionMode(selectionMode);
-    // chooser.removeChoosableFileFilter(chooser
-    //        .getChoosableFileFilters()[0]);
-    chooser.addChoosableFileFilter(filter);
+    chooser.removeChoosableFileFilter(chooser
+           .getChoosableFileFilters()[0]);
     chooser.setCurrentDirectory(HOME_DIR);
+    
+    filters.forEach((ext, desc) ->
+        { FileNameExtensionFilter f = new FileNameExtensionFilter(desc, ext);
+          chooser.addChoosableFileFilter(f); });
     
     return chooser;
 
@@ -276,7 +231,8 @@ public static File getLastDir (JFileChooser chooser) {
 
 public static String replaceUnusedChars (String value) {
     
-    return value.replace('’', '\'')
+    return value.replace('‘', '\'')
+                .replace('’', '\'')
                 .replace('Ґ', 'Г')
                 .replace('ґ', 'г');
 }

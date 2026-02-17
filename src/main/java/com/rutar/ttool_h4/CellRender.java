@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import static com.rutar.ttool_h4.TToolH4.*;
+
 // ............................................................................
 /// Реалізація зміненої промальовки клітинок таблиці
 /// @author Rutar_Andriy
@@ -49,10 +51,11 @@ return component;
 
 private void setNormalColor (Component component, int c, int r) {
     
-    if (c != 2)
+    if ((fileExt.equals("txt") && c < 3) ||
+        (fileExt.equals("h4c") && c < 1))
          { component.setForeground(Color.GRAY);   }
     else { component.setForeground(defaultColor); }
-    
+
 }
 
 // ============================================================================

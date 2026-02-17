@@ -1,6 +1,6 @@
 package com.rutar.ttool_h4;
 
-import java.io.File;
+import java.io.*;
 import javax.swing.filechooser.FileFilter;
 
 // ............................................................................
@@ -19,21 +19,8 @@ public static final FileFilter dirFilter = new FileFilter() {
     public boolean accept (File file) { return file.isDirectory(); }
 
     @Override
-    public String getDescription() { return "Особлива папка"; }
+    public String getDescription() { return "H4 папки розпакованих шрифтів"; }
 
-};
-
-// ============================================================================
-/// Користувацький фільтр для файлів
-
-public static final FileFilter fileFilter = new FileFilter() {
-    
-    @Override
-    public boolean accept (File file) { return file.isFile(); }
-
-    @Override
-    public String getDescription() { return "Особливий файл"; }
-    
 };
 
 // Кінець класу FileFilters ===================================================
