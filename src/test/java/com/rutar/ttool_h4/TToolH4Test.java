@@ -26,9 +26,7 @@ void should_Answer_With_True()
 @Test
 @DisplayName("File .empty exist")
 void file_Empty_Exist()
-    { URL resource = getClass().getResource(".empty");
-      assertTrue(resource != null &&
-                 new File(resource.getFile()).exists()); }
+    { assertNotNull(getClass().getResource(".empty")); }
 
 // ============================================================================
     
