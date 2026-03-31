@@ -1,6 +1,7 @@
 package com.rutar.ttool_h4;
 
 import java.io.*;
+import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
@@ -167,6 +168,22 @@ public static byte[] getBytesByShort (short value) {
 public static byte[] getBytesByInteger (int value) {
     return new byte[] { (byte)(value),       (byte)(value >> 8),
                         (byte)(value >> 16), (byte)(value >> 24) };
+}
+
+// ============================================================================
+/// Виділення клітинок у таблиці
+/// @param table таблиця, клітинки якої потрібно виділяти
+/// @param col номер стовбця клітинки, яку потрібно виділити
+/// @param row номер рядка клітинки, яку потрібно виділити
+
+public static void selectCell (JTable table, int col, int row) {
+
+    table.setRowSelectionInterval   (row, row);
+    table.setColumnSelectionInterval(col, col);
+
+    Rectangle rect = table.getCellRect(row, col, true);
+    table.scrollRectToVisible(rect);
+
 }
 
 // ============================================================================

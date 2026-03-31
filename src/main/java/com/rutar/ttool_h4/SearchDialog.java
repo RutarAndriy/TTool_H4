@@ -89,6 +89,7 @@ lbl_info.setText("Знайдено: " + findArray.size() + " результат�
 
 if (!findArray.isEmpty()) { findIndex = 0;
                             selectResult(findIndex); }
+else                      { lbl_num.setText("0/0");  }
 
 updateAllComponentsState();
 
@@ -106,13 +107,8 @@ int targetRow = findArray.get(index)[0];
 int targetCol = findArray.get(index)[1];
 
 CellRender.setSearchedCell(targetCol, targetRow);
+Utils.selectCell(table, targetCol, targetRow);
 
-table.setRowSelectionInterval(targetRow, targetRow);
-table.setColumnSelectionInterval(targetCol, targetCol);
-
-Rectangle rect = table.getCellRect(targetRow, targetCol, true);
-table.scrollRectToVisible(rect);
-table.changeSelection(targetRow, targetCol, false, false);    
 lbl_num.setText((index+1) + "/" + findArray.size());
 updateAllComponentsState();
 editor.toFront();
@@ -144,17 +140,18 @@ private void replaceThis() {
     
     int targetRow = findArray.get(findIndex)[0];
     int targetCol = findArray.get(findIndex)[1];
-    
+    int count = 0, index = 0, searchIndex = 0;
+
     String text = (String) table.getValueAt(targetRow, targetCol);
+    String searchText  = getFindText();
+    String replaceText = getReplText();
     
-    int count = 0, index = 0, searchIndex;
-    String searchText  = fld_find_text .getText();
-    String replaceText = fld_repl_text.getText();
-    
+    cencelCellEditing();
+
     while (index != -1)
-        { searchIndex = index == 0 ? 0 : index + searchText.length();
-          index = text.indexOf(searchText, searchIndex);
-          if (index != -1) { count++; } }
+        { index = text.indexOf(searchText, searchIndex);
+          if (index != -1) { searchIndex = index + searchText.length();
+                             count++; } }
     
     if (count == 1)
         { text = text.replace(searchText, replaceText); }
@@ -178,14 +175,15 @@ String messageText = "<html>Ви справді хочете виконати з
 if (showConfirmDialog(this, messageText, "Повідомлення", 0) != 0) { return; }
 
 String text;
-String oldText = fld_find_text.getText();
-String newText = fld_repl_text.getText().equals(textRepl) ? "" :
-                 fld_repl_text.getText();
+String searchText  = getFindText();
+String replaceText = getReplText();
+
+cencelCellEditing();
 
 for (int[] cell : findArray)
     { if (!table.isCellEditable(cell[0], cell[1])) { continue; }
       text = (String) table.getValueAt(cell[0], cell[1]);
-      text = text.replace(oldText, newText);
+      text = text.replace(searchText, replaceText);
       table.setValueAt(text, cell[0], cell[1]); } }
 
 // ============================================================================
@@ -221,10 +219,9 @@ for (int[] cell : findArray) {
         { hasEditableCell = true;
           break; } }
 
-// Оновлення стану кнопок
-btn_next     .setEnabled(!findArray.isEmpty());
-btn_prev     .setEnabled(!findArray.isEmpty());
-
+// Оновлення стану компонентів
+btn_next  .setEnabled(!findArray.isEmpty());
+btn_prev  .setEnabled(!findArray.isEmpty());
 cb_replace.setEnabled(canReplace);
 
 btn_repl_all .setEnabled(canReplace && !findArray.isEmpty() &&
@@ -522,7 +519,7 @@ btn_clean_repl.setEnabled(canReplace && cb_replace.isSelected() &&
         tmpField = (JTextField) evt.getComponent();
         
         if (tmpField == fld_find_text) { tipsText = textFind; }
-        else                             { tipsText = textRepl; }
+        else                           { tipsText = textRepl; }
         
         tmpField.setForeground(defaultTextColor);
         
@@ -538,7 +535,7 @@ btn_clean_repl.setEnabled(canReplace && cb_replace.isSelected() &&
         tmpField = (JTextField) evt.getComponent();
         
         if (tmpField == fld_find_text) { tipsText = textFind; }
-        else                             { tipsText = textRepl; }
+        else                           { tipsText = textRepl; }
         
         if (tmpField.getText().isEmpty())
              { tmpField.setText(tipsText);
@@ -648,6 +645,26 @@ addComponentListener(new ComponentAdapter() {
 });
 
 }
+
+// ============================================================================
+/// Отримання даних з текстового поля пошуку
+
+private String getFindText()
+    { String text = fld_find_text.getText();
+      return text.equals(textFind) ? "" : text; }
+
+// ============================================================================
+/// Отримання даних з текстового поля заміни
+
+private String getReplText()
+    { String text = fld_repl_text.getText();
+      return text.equals(textRepl) ? "" : text; }
+
+// ============================================================================
+/// Скасування активного редагування клітинки
+
+private void cencelCellEditing()
+    { if (table.isEditing()) { table.getCellEditor().cancelCellEditing(); } }
 
 // ============================================================================
 /// Реагування на завершення переміщення вікна
