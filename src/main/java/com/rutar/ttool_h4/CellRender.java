@@ -33,8 +33,8 @@ Component component = super.getTableCellRendererComponent(table, value,
                                                           hasFocus, row, col);
 
 if (defaultColor == null)
-    { defaultColor = component.getForeground();
-      searchColor = UIManager.getColor("Component.accentColor"); }
+  { defaultColor = component.getForeground();
+    searchColor = UIManager.getColor("Component.accentColor"); }
 
 // ............................................................................
 
@@ -55,14 +55,13 @@ private void setNormalColor (Component component, int column) {
         (fileExt.equals("h4c") && column < 1))
          { component.setForeground(Color.GRAY);   }
     else { component.setForeground(defaultColor); }
-
 }
 
 // ============================================================================
 
 public static void setSearchedCell (int searchedCol, int searchedRow)
-    { CellRender.searchedCol = searchedCol;
-      CellRender.searchedRow = searchedRow; }
+  { CellRender.searchedCol = searchedCol;
+    CellRender.searchedRow = searchedRow; }
 
 // Кінець класу CellRender ====================================================
 

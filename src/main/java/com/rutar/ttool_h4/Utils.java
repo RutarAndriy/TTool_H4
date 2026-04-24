@@ -67,21 +67,20 @@ try (var bis = new ByteArrayInputStream(allBytes, procPosition,
                                         allBytes.length);
      var gcis = new GzipCompressorInputStream(bis)) {
     
-    int sPosition = procPosition;
-    
-    int len;
-    byte[] tmp = new byte[4096];
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    
-    while ((len = gcis.read(tmp)) > 0) {
-        bos.write(tmp, 0, len);
-    }
-    
-    int ePosition = allBytes.length - bis.available();
-    procPosition = ePosition;
+  int sPosition = procPosition;
 
-    return Arrays.copyOfRange(allBytes, sPosition, ePosition);
+  int len;
+  byte[] tmp = new byte[4096];
+  ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
+  while ((len = gcis.read(tmp)) > 0) {
+      bos.write(tmp, 0, len);
+  }
+
+  int ePosition = allBytes.length - bis.available();
+  procPosition = ePosition;
+
+  return Arrays.copyOfRange(allBytes, sPosition, ePosition);
 }
 
 catch (Exception e) { System.err.println("GZIP decompress error");
@@ -102,18 +101,19 @@ byte[] header = preperedData.getFirst();
 
 for (int z = 0; z < preperedData.size(); z++) {
 
-    // Оновлюємо загальний розмір даних
-    totalSize += preperedData.get(z).length;
-    
-    // Якщо це не навчальна кампанія - записуємо у заголовок метадані
-    if (z > 0 && blocks.getFirst().getStrings().length > 0) {
-        
-        // Розраховуємо позицію та дані для запису
-        int pos = header.length - (preperedData.size() - z) * 4;
-        byte[] data = Utils.getBytesByInteger(preperedData.get(z).length);
-        
-        // Записуємо метадані в заголовок
-        setBytesFromPosition(header, data, pos); } }
+  // Оновлюємо загальний розмір даних
+  totalSize += preperedData.get(z).length;
+
+  // Якщо це не навчальна кампанія - записуємо у заголовок метадані
+  if (z > 0 && blocks.getFirst().getStrings().length > 0) {
+
+    // Розраховуємо позицію та дані для запису
+    int pos = header.length - (preperedData.size() - z) * 4;
+    byte[] data = Utils.getBytesByInteger(preperedData.get(z).length);
+
+    // Записуємо метадані в заголовок
+    setBytesFromPosition(header, data, pos); }
+}
 
 // Оскільки розмір кампанії вказаний як int, починаючи з 12 позиції,
 // необхідно від загального розміру файлу відняти (12 + 4) байт
@@ -129,46 +129,42 @@ setBytesFromPosition(header, Utils.getBytesByInteger(totalSize), 12);
 
 private static void setBytesFromPosition (byte[] destination,
                                           byte[] data, int position)
-    { System.arraycopy(data, 0, destination, position, data.length); }
+  { System.arraycopy(data, 0, destination, position, data.length); }
 
 // ============================================================================
 /// Виведення байтового масиву в консоль у вигляді hex-значень
 /// @param array байтовий масив для виведення в консоль
 
-public static void printAsHex (byte[] array) {
-
-for (int q = 0; q < array.length; q++)
-    { System.out.print(" " + String.format("%02X", array[q]));
-      if ((q+1) % 8  == 0) { System.out.print(" ");  }
-      if ((q+1) % 16 == 0) { System.out.println(""); } } }
+public static void printAsHex (byte[] array)
+  { for (int q = 0; q < array.length; q++)
+      { System.out.print(" " + String.format("%02X", array[q]));
+        if ((q+1) % 8  == 0) { System.out.print(" ");  }
+        if ((q+1) % 16 == 0) { System.out.println(""); } } }
 
 // ============================================================================
 /// Перетворення байтового масиву в тип short
 /// @param bytes байтовий масив для перетворення
 /// @return об'єкт типу short
 
-public static short getShortByBytes (byte[] bytes) {
-    return (short) ((bytes[1] & 0xFF) << 8 | bytes[0] & 0xFF);
-}
+public static short getShortByBytes (byte[] bytes)
+  { return (short) ((bytes[1] & 0xFF) << 8 | bytes[0] & 0xFF); }
 
 // ============================================================================
 /// Перетворення числа типу short в байтовий масив
 /// @param value число типу short
 /// @return байтовий масив
 
-public static byte[] getBytesByShort (short value) {
-    return new byte[] { (byte)(value), (byte)(value >> 8) };
-}
+public static byte[] getBytesByShort (short value)
+  { return new byte[] { (byte)(value), (byte)(value >> 8) }; }
 
 // ============================================================================
 /// Перетворення числа типу int в байтовий масив
 /// @param value число типу int
 /// @return байтовий масив
 
-public static byte[] getBytesByInteger (int value) {
-    return new byte[] { (byte)(value),       (byte)(value >> 8),
-                        (byte)(value >> 16), (byte)(value >> 24) };
-}
+public static byte[] getBytesByInteger (int value)
+  { return new byte[] { (byte)(value),       (byte)(value >> 8),
+                        (byte)(value >> 16), (byte)(value >> 24) }; }
 
 // ============================================================================
 /// Виділення клітинок у таблиці
@@ -183,7 +179,6 @@ public static void selectCell (JTable table, int col, int row) {
 
     Rectangle rect = table.getCellRect(row, col, true);
     table.scrollRectToVisible(rect);
-
 }
 
 // ============================================================================
@@ -195,7 +190,7 @@ public static void selectCell (JTable table, int col, int row) {
 
 public static JFileChooser getFileChooser (int selectionMode,
                                            String ext, String desc)
-    { return getFileChooser(selectionMode, Map.of(ext, desc)); }
+  { return getFileChooser(selectionMode, Map.of(ext, desc)); }
 
 // ============================================================================
 /// Отримання налаштованого JFileChooser'а
@@ -213,11 +208,10 @@ public static JFileChooser getFileChooser (int selectionMode,
     chooser.setCurrentDirectory(HOME_DIR);
     
     filters.forEach((ext, desc) ->
-        { FileNameExtensionFilter f = new FileNameExtensionFilter(desc, ext);
-          chooser.addChoosableFileFilter(f); });
+      { FileNameExtensionFilter f = new FileNameExtensionFilter(desc, ext);
+        chooser.addChoosableFileFilter(f); });
     
     return chooser;
-
 }
 
 // ============================================================================
@@ -231,14 +225,13 @@ public static File getLastDir (JFileChooser chooser) {
     
     // Якщо останього файлу немає - повертаємо null
     if (file == null)
-        { return null; }
+      { return null; }
     // Якщо останній файл є папкою - повертаємо батьківську папку
     else if (file.isDirectory())
-        { return new File(file.getParent()); }
+      { return new File(file.getParent()); }
     // Якщо останній файл є файлом - повертаємо шлях до його папки
     else
-        { return new File(file.getPath().replace(file.getName(), "")); }
-
+      { return new File(file.getPath().replace(file.getName(), "")); }
 }
 
 // ============================================================================
@@ -246,13 +239,11 @@ public static File getLastDir (JFileChooser chooser) {
 /// @param value текст із невикористовуваними символами
 /// @return текст із заміненими символами
 
-public static String replaceUnusedChars (String value) {
-    
-    return value.replace('‘', '\'')
+public static String replaceUnusedChars (String value)
+  { return value.replace('‘', '\'')
                 .replace('’', '\'')
                 .replace('Ґ', 'Г')
-                .replace('ґ', 'г');
-}
+                .replace('ґ', 'г'); }
 
 // Кінець класу Utils =========================================================
 

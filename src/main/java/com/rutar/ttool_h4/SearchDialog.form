@@ -21,7 +21,7 @@
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="3"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
   </AuxValues>
@@ -32,62 +32,22 @@
           <Group type="102" attributes="0">
               <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="sep_one" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="fld_find_text" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="btn_clean_find" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lbl_info" min="-2" pref="255" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lbl_num" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="cb_editable_only" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lbl_info" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="lbl_num" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="fld_repl_text" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="btn_clean_repl" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="sep_two" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="cb_replace" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btn_repl_this" min="-2" pref="170" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="btn_repl_all" min="-2" pref="170" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="btn_prev" min="-2" pref="170" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="btn_next" min="-2" pref="170" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="10" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="cb_ignore_case" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="pnl_goTo" alignment="0" pref="390" max="32767" attributes="0"/>
+                  <Component id="pnl_replace" max="32767" attributes="0"/>
+                  <Component id="cb_replace" max="32767" attributes="0"/>
+                  <Component id="sep_goTo" max="32767" attributes="0"/>
+                  <Component id="pnl_findText" alignment="0" max="32767" attributes="0"/>
+                  <Component id="cb_editableOnly" alignment="0" max="32767" attributes="0"/>
+                  <Component id="cb_ignoreCase" alignment="1" max="32767" attributes="0"/>
+                  <Component id="pnl_replaceType" alignment="0" max="32767" attributes="0"/>
+                  <Component id="sep_replaceType" alignment="0" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,35 +55,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Component id="cb_ignore_case" min="-2" max="-2" attributes="0"/>
+              <Component id="cb_ignoreCase" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Component id="cb_editable_only" min="-2" max="-2" attributes="0"/>
+              <Component id="cb_editableOnly" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btn_clean_find" max="32767" attributes="0"/>
-                  <Component id="fld_find_text" max="32767" attributes="0"/>
-              </Group>
+              <Component id="pnl_findText" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_prev" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_next" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="pnl_goTo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Component id="sep_one" min="-2" max="-2" attributes="0"/>
+              <Component id="sep_goTo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Component id="cb_replace" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btn_clean_repl" max="32767" attributes="0"/>
-                  <Component id="fld_repl_text" max="32767" attributes="0"/>
-              </Group>
+              <Component id="pnl_replace" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_repl_this" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_repl_all" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="pnl_replaceType" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-              <Component id="sep_two" min="-2" max="-2" attributes="0"/>
+              <Component id="sep_replaceType" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="lbl_num" max="32767" attributes="0"/>
@@ -135,7 +83,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JCheckBox" name="cb_ignore_case">
+    <Component class="javax.swing.JCheckBox" name="cb_ignoreCase">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x448;&#x443;&#x43a; &#x431;&#x435;&#x437; &#x432;&#x440;&#x430;&#x445;&#x443;&#x432;&#x430;&#x43d;&#x43d;&#x44f;&#x43c; &#x440;&#x435;&#x433;&#x456;&#x441;&#x442;&#x440;&#x443;"/>
         <Property name="actionCommand" type="java.lang.String" value="cbIgnoreCase"/>
@@ -144,7 +92,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="cb_editable_only">
+    <Component class="javax.swing.JCheckBox" name="cb_editableOnly">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x448;&#x443;&#x43a; &#x43b;&#x438;&#x448;&#x435; &#x432; &#x437;&#x43c;&#x456;&#x43d;&#x44e;&#x432;&#x430;&#x43d;&#x438;&#x445; &#x43a;&#x43b;&#x456;&#x442;&#x438;&#x43d;&#x43a;&#x430;&#x445;"/>
@@ -154,56 +102,86 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="fld_find_text">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="actionCommand" type="java.lang.String" value="search"/>
-      </Properties>
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="onFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="onFocusLost"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_clean_find">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x2715;"/>
-        <Property name="actionCommand" type="java.lang.String" value="cleanSearch"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 2, 2, 2]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_prev">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;&lt; &#x437;&#x43d;&#x430;&#x439;&#x442;&#x438; &#x43f;&#x43e;&#x43f;&#x435;&#x440;&#x435;&#x434;&#x43d;&#x454;"/>
-        <Property name="actionCommand" type="java.lang.String" value="prev"/>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 5, 2, 5]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_next">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x437;&#x43d;&#x430;&#x439;&#x442;&#x438; &#x43d;&#x430;&#x441;&#x442;&#x443;&#x43f;&#x43d;&#x435; &gt;&gt;"/>
-        <Property name="actionCommand" type="java.lang.String" value="next"/>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 5, 2, 5]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JSeparator" name="sep_one">
+    <Container class="javax.swing.JPanel" name="pnl_findText">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="hfld_findText" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Component id="btn_cleanFind" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="hfld_findText" alignment="0" max="32767" attributes="0"/>
+              <Component id="btn_cleanFind" alignment="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="com.rutar.jhinttextfield.JHintTextField" name="hfld_findText">
+          <Properties>
+            <Property name="hintText" type="java.lang.String" value="&#x422;&#x435;&#x43a;&#x441;&#x442; &#x434;&#x43b;&#x44f; &#x43f;&#x43e;&#x448;&#x443;&#x43a;&#x443;"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="actionCommand" type="java.lang.String" value="search"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_cleanFind">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x2715;"/>
+            <Property name="actionCommand" type="java.lang.String" value="cleanSearch"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[2, 2, 2, 2]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="pnl_goTo">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+        <Property name="columns" type="int" value="0"/>
+        <Property name="rows" type="int" value="1"/>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btn_previous">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;&lt; &#x437;&#x43d;&#x430;&#x439;&#x442;&#x438; &#x43f;&#x43e;&#x43f;&#x435;&#x440;&#x435;&#x434;&#x43d;&#x454;"/>
+            <Property name="actionCommand" type="java.lang.String" value="previus"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[2, 5, 2, 5]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_next">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x437;&#x43d;&#x430;&#x439;&#x442;&#x438; &#x43d;&#x430;&#x441;&#x442;&#x443;&#x43f;&#x43d;&#x435; &gt;&gt;"/>
+            <Property name="actionCommand" type="java.lang.String" value="next"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[2, 5, 2, 5]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JSeparator" name="sep_goTo">
     </Component>
     <Component class="javax.swing.JCheckBox" name="cb_replace">
       <Properties>
@@ -214,65 +192,99 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="fld_repl_text">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="actionCommand" type="java.lang.String" value="replace"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="onFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="onFocusLost"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_clean_repl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x2715;"/>
-        <Property name="actionCommand" type="java.lang.String" value="cleanReplace"/>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 2, 2, 2]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_repl_this">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43c;&#x456;&#x43d;&#x438;&#x442;&#x438; &#x437;&#x43d;&#x430;&#x439;&#x434;&#x435;&#x43d;&#x435;"/>
-        <Property name="actionCommand" type="java.lang.String" value="replaceThis"/>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 5, 2, 5]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_repl_all">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43c;&#x456;&#x43d;&#x438;&#x442;&#x438; &#x432;&#x441;&#x435;"/>
-        <Property name="actionCommand" type="java.lang.String" value="replaceAll"/>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[2, 5, 2, 5]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JSeparator" name="sep_two">
+    <Container class="javax.swing.JPanel" name="pnl_replace">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="hfld_replaceText" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Component id="btn_cleanReplace" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="hfld_replaceText" max="32767" attributes="0"/>
+              <Component id="btn_cleanReplace" alignment="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="com.rutar.jhinttextfield.JHintTextField" name="hfld_replaceText">
+          <Properties>
+            <Property name="hintText" type="java.lang.String" value="&#x422;&#x435;&#x43a;&#x441;&#x442; &#x434;&#x43b;&#x44f; &#x437;&#x430;&#x43c;&#x456;&#x43d;&#x438;"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="actionCommand" type="java.lang.String" value="replace"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_cleanReplace">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x2715;"/>
+            <Property name="actionCommand" type="java.lang.String" value="cleanReplace"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[2, 2, 2, 2]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="pnl_replaceType">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+        <Property name="columns" type="int" value="0"/>
+        <Property name="rows" type="int" value="1"/>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btn_replaceThis">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43c;&#x456;&#x43d;&#x438;&#x442;&#x438; &#x437;&#x43d;&#x430;&#x439;&#x434;&#x435;&#x43d;&#x435;"/>
+            <Property name="actionCommand" type="java.lang.String" value="replaceThis"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[2, 5, 2, 5]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_replaceAll">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43c;&#x456;&#x43d;&#x438;&#x442;&#x438; &#x432;&#x441;&#x435;"/>
+            <Property name="actionCommand" type="java.lang.String" value="replaceAll"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+              <Insets value="[2, 5, 2, 5]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onComponentAction"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JSeparator" name="sep_replaceType">
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_info">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="66" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_num">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="0" red="cc" type="rgb"/>
+        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="0/0"/>
       </Properties>

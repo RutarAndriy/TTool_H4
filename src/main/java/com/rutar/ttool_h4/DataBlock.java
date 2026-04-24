@@ -33,7 +33,6 @@ public DataBlock (byte[] rawBytes) {
     
     processRawData();
     processStrings();
-
 }
 
 // ============================================================================
@@ -42,17 +41,17 @@ public DataBlock (byte[] rawBytes) {
 private void processRawData() {
 
 if (debug) {                 // запис у файл стиснених даних для налагоджування
-    try (FileOutputStream fos = new FileOutputStream("Compressed_" + 
-                                  ++BLOCK_ID + ".bin")) { fos.write(rawData); }
-    catch (Exception _) {} }
+  try (FileOutputStream fos = new FileOutputStream("Compressed_" + 
+                                ++BLOCK_ID + ".bin")) { fos.write(rawData); }
+  catch (Exception _) {} }
 
 /// Якщо дані стиснені - розпаковуємо їх
 if (compressed) { rawData = decompressData(rawData); }
 
 if (debug) {              // запис у файл розпакованих даних для налагоджування
-    try (FileOutputStream fos = new FileOutputStream("Decompressed_" +
-                                    BLOCK_ID + ".bin")) { fos.write(rawData); }
-    catch (Exception _) {} }
+  try (FileOutputStream fos = new FileOutputStream("Decompressed_" +
+                                  BLOCK_ID + ".bin")) { fos.write(rawData); }
+  catch (Exception _) {} }
 
 // ............................................................................
 // Обробка масиву байт в циклі
@@ -62,40 +61,40 @@ boolean validChar, validLetter, validString, hasLetter;
 
 for (int z = 0; z < rawData.length - 1; z++) {
     
-    hasLetter = false;                      // якщо true - рядок містить літери
-    validString = true;                          // якщо true - рядок коректний
-    repeatableCharCount = 0;                 // кількість повторюваних символів
-    short sLenght = Utils.getShortByBytes(new byte[] { rawData[z],
-                                                       rawData[z+1] });
+  hasLetter = false;                        // якщо true - рядок містить літери
+  validString = true;                            // якщо true - рядок коректний
+  repeatableCharCount = 0;                   // кількість повторюваних символів
+  short sLenght = Utils.getShortByBytes(new byte[] { rawData[z],
+                                                     rawData[z+1] });
     
-    // Перевірка довщини рядка та виходу за межі масиву
-    if (sLenght <= 0 || z+2+sLenght > rawData.length) { continue; }
+  // Перевірка довщини рядка та виходу за межі масиву
+  if (sLenght <= 0 || z+2+sLenght > rawData.length) { continue; }
 
-    // Обробка потенційного текстового рядка
-    for (int q = z+2; q < z+2+sLenght; q++) {
-        
-        validChar   = isValidChar  (rawData[q]);  // перев. коректності символу
-        validLetter = isValidLetter(rawData[q]);   // перев. коректності літери
-        
-        // Обробка псевдорядків, типу "яяяяя" або "їяяя" ...
-        if (isRepeatableChar(rawData[q])) { repeatableCharCount++; }
-        
-        if (validLetter) { hasLetter = true; }
-        if (!validChar && !validLetter) { validString = false; break; }
-    }
+  // Обробка потенційного текстового рядка
+  for (int q = z+2; q < z+2+sLenght; q++) {
+
+    validChar   = isValidChar  (rawData[q]);      // перев. коректності символу
+    validLetter = isValidLetter(rawData[q]);       // перев. коректності літери
+
+    // Обробка псевдорядків, типу "яяяяя" або "їяяя" ...
+    if (isRepeatableChar(rawData[q])) { repeatableCharCount++; }
+
+    if (validLetter) { hasLetter = true; }
+    if (!validChar && !validLetter) { validString = false; break; }
+  }
     
-    // Перевірка виконання всіх вимог до текстового рядка
-    if (validString && sLenght > 1 &&
-        hasLetter && repeatableCharCount != sLenght) {
-        
-        // Копіювання даних, які не обробляються
-        data.add(Arrays.copyOfRange(rawData, index, z));
-        // Копіювання даних, що відповідають текстовому рядку
-        data.add(Arrays.copyOfRange(rawData, z, z+sLenght+2));
-        
-        index = z + sLenght + 2;
-        z += sLenght + 1;    // якщо рядок знайдено, то пропускаємо зайві байти
-    }
+  // Перевірка виконання всіх вимог до текстового рядка
+  if (validString && sLenght > 1 &&
+    hasLetter && repeatableCharCount != sLenght) {
+
+    // Копіювання даних, які не обробляються
+    data.add(Arrays.copyOfRange(rawData, index, z));
+    // Копіювання даних, що відповідають текстовому рядку
+    data.add(Arrays.copyOfRange(rawData, z, z+sLenght+2));
+
+    index = z + sLenght + 2;
+    z += sLenght + 1;        // якщо рядок знайдено, то пропускаємо зайві байти
+  }
 }
 
 // Копіювання залишкових даних
@@ -126,16 +125,16 @@ private void processStrings() {
 ArrayList<String> array = new ArrayList<>();
 
 try { for (int z = 1; z < data.size(); z+=2) {
-          byte[] binaryString = data.get(z);
-          replaceByte(binaryString, (byte) 0x0A, (byte) 0xAC, 2);
-          short sLenght = Utils.getShortByBytes(binaryString);
-          String string = new String(binaryString, 2, sLenght, "cp1251");
-          array.add(string); }
+        byte[] binaryString = data.get(z);
+        replaceByte(binaryString, (byte) 0x0A, (byte) 0xAC, 2);
+        short sLenght = Utils.getShortByBytes(binaryString);
+        String string = new String(binaryString, 2, sLenght, "cp1251");
+        array.add(string); }
 
       strings = array.toArray(String[]::new); }
 
 catch (UnsupportedEncodingException e)
-    { System.err.println("Unsupported encoding error"); }
+  { System.err.println("Unsupported encoding error"); }
 
 }
 
@@ -147,15 +146,16 @@ private byte[] decompressData (byte[] data) {
 try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
      GzipCompressorInputStream gcis = new GzipCompressorInputStream(bis)) {
     
-    parameters = gcis.getMetaData();
-    
-    int len;
-    byte[] tmp = new byte[4096];
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    
-    while ((len = gcis.read(tmp)) > 0) { bos.write(tmp, 0, len); }
+  parameters = gcis.getMetaData();
 
-    return bos.toByteArray(); }
+  int len;
+  byte[] tmp = new byte[4096];
+  ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+  while ((len = gcis.read(tmp)) > 0) { bos.write(tmp, 0, len); }
+
+  return bos.toByteArray();
+}
 
 catch (Exception e) { System.err.println("GZIP decompress error");
                       return null; }
@@ -194,9 +194,8 @@ ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 try {
 
-for (int z = 0; z < strings.length; z++) {
-    
-    // Отримання тексту з масиву
+for (int z = 0; z < strings.length; z++)
+  { // Отримання тексту з масиву
     String str = strings[z];
     // Визначення довжини тексту
     short len = (short) str.length();
@@ -262,7 +261,8 @@ private void replaceByte (byte[] array,
 
     for (int z = 0; z < array.length; z++)
         { if (z >= skip && array[z] == oldValue)
-              { array[z] = newValue; } } }
+              { array[z] = newValue; } }
+}
 
 // ============================================================================
 /// Перевірка, чи дані є стисненими за допомогою алгоритму zlib
